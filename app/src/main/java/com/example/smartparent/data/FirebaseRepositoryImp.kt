@@ -2,11 +2,13 @@ package com.example.smartparent.data
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.example.smartparent.data.interfaceparent.FirebaseRepository
 import com.example.smartparent.data.model.ConnectedDeviceContactModel
 import com.example.smartparent.data.model.FirebaseMessageModel
 import com.example.smartparent.data.viewmodel.ConnectedDeviceContactViewModel
 import com.example.smartparent.data.viewmodel.FireStorageViewModel
+import com.example.smartparent.utlity.ActivityUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -107,7 +109,7 @@ class FirebaseRepositoryImp(private val application: Application) : FirebaseRepo
     }
 
     override  fun getMessage(blindEmail:String ) {
-       var fireStorage=FireStorageViewModel
+       var fireStorage= ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
         var firebaseMessageModel: FirebaseMessageModel
         val user = FirebaseAuth.getInstance().currentUser
         val userIdFirstPart = user?.uid

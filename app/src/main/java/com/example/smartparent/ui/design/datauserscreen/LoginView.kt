@@ -54,6 +54,8 @@ import com.example.smartparent.data.model.SignInState
 import com.example.smartparent.data.model.UserProfileModel
 import com.example.smartparent.data.viewmodel.FirebaseViewModel
 import com.example.smartparent.data.viewmodel.UserProfileViewModel
+import com.example.smartparent.ui.design.CheckUiColorMode
+import com.example.smartparent.ui.design.CheckUiColorMode2
 import com.example.smartparent.ui.design.customizecompose.CustomButtonCompose
 import com.example.smartparent.ui.design.customizecompose.CustomImageCompose
 import com.example.smartparent.ui.design.customizecompose.CustomTextCompose

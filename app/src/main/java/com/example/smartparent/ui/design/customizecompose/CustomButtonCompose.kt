@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.smartparent.ui.design.CheckUiColorButtonMode
+import com.example.smartparent.ui.design.CheckUiColorMode
 import com.example.smartparent.ui.design.getCustomTextInstance
 
 data class CustomButtonCompose(
@@ -39,7 +41,7 @@ data class CustomButtonCompose(
                 .padding(horizontal = horizontalPadding.dp, vertical = verticalPadding.dp)
                 .defaultMinSize(minWidth = minWidth.dp, minHeight = minHeight.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = CheckUiColorMode(),
+                containerColor = CheckUiColorButtonMode(),
                 contentColor = Color.White
             ),
             shape = RoundedCornerShape(shape.dp),

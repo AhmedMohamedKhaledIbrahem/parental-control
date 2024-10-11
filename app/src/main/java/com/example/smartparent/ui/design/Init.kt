@@ -35,6 +35,10 @@ fun getCustomSwitchCompose(): CustomSwitchCompose {
 fun CheckUiColorMode(): Color {
     return if (isSystemInDarkTheme()) BlueGray else Black
 }
+@Composable
+fun CheckUiColorButtonMode(): Color {
+    return if (isSystemInDarkTheme()) BlueGray else BlueGray
+}
 
 @Composable
 fun CheckUiColorMode2(): Color {

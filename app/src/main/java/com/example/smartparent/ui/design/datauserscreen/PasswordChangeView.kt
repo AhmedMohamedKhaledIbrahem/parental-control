@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.smartparent.R
+import com.example.smartparent.ui.design.CheckUiColorMode2
 import com.example.smartparent.ui.design.customizecompose.CustomButtonCompose
 import com.example.smartparent.ui.design.customizecompose.CustomTextCompose
 import com.example.smartparent.ui.design.customizecompose.CustomTextFieldCompose

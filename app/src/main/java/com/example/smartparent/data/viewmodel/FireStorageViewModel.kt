@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.smartparent.data.model.FirebaseMessageModel
 
-object FireStorageViewModel  : ViewModel(){
+class FireStorageViewModel  : ViewModel(){
     private val _dataLiveData = MutableLiveData<FirebaseMessageModel>()
 
 

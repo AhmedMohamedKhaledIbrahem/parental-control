@@ -171,7 +171,7 @@ class ConnectedDeviceContactView(
                         }
                     }
 
-                    navController.navigate("/connected")
+                    navController.navigate("/home")
 
 
                 }

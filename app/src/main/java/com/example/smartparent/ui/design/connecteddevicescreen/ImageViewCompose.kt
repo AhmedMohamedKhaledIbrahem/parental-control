@@ -20,10 +20,10 @@ class ImageViewCompose {
 
     @Composable
     fun ImageViewer() {
-        val vModel = FireStorageViewModel
+       // val vModel = FireStorageViewModel
 
         val fireStorageViewModel =
-            ViewModelProvider(ActivityUtils.appCompatActivity!!)[vModel.javaClass]
+            ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
         var firebaseMessageModel = FirebaseMessageModel(0, "", 0)
         // Use Coil to load the image from the URL
       /*  fireStorageViewModel.dataLiveData.observe(ActivityUtils.appCompatActivity!!) { newData ->
@@ -61,7 +61,7 @@ class ImageViewCompose {
     @Composable
     fun BackHandler() {
         androidx.activity.compose.BackHandler {
-            var fireStorage = FireStorageViewModel
+            var fireStorage = ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
             NavControllerUtil.navController?.navigate("/connected")
             fireStorage.updateData(FirebaseMessageModel(0, "", 0))
 

@@ -45,8 +45,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.example.smartparent.data.FirebaseRepositoryImp
 import com.example.smartparent.R
+import com.example.smartparent.data.FirebaseRepositoryImp
 import com.example.smartparent.data.model.ConnectedDeviceContactModel
 import com.example.smartparent.data.model.FirebaseMessageModel
 import com.example.smartparent.data.viewmodel.ConnectedDeviceContactViewModel
@@ -163,11 +163,11 @@ class ConnectedDeviceView(
 
     @Composable
     fun ListItem(connectedDeviceContact: ConnectedDeviceContactModel) {
-        var fireStorage = FireStorageViewModel
-        val vModel = FireStorageViewModel
+        //var fireStorage = FireStorageViewModel
+        // val vModel = FireStorageViewModel
         var context = LocalContext.current
         val fireStorageViewModel =
-            ViewModelProvider(ActivityUtils.appCompatActivity!!)[vModel.javaClass]
+            ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
         var locationButtonClicked by remember { mutableStateOf(false) }
         var cameraButtonClicked by remember { mutableStateOf(false) }
         Box(
@@ -194,7 +194,7 @@ class ConnectedDeviceView(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     textCompose.copy(
-                        fontSize = 20,
+                        fontSize = 15,
                         fontWeight = FontWeight.Bold,
                     ).CustomizeText(text = connectedDeviceContact.blindEmail)
                 }
@@ -207,7 +207,7 @@ class ConnectedDeviceView(
 
                     buttonCompose.copy(shape = 4).CustomizeButton(
                         onclick = {
-                            locationButtonClicked = true
+                            //locationButtonClicked = true
                             repository.messageSender(connectedDeviceContact.blindEmail, "0", 1, 1)
 
                             repository.getMessage(connectedDeviceContact.blindEmail)
@@ -232,17 +232,14 @@ class ConnectedDeviceView(
 
 
                         },
-                        modifier = Modifier.width(170.dp)
+                        modifier = Modifier.width(150.dp)
                     ) {
-                        textCompose.copy(fontSize = 15).CustomizeText(text = "camera")
+                        textCompose.copy(fontSize = 13).CustomizeText(text = "camera")
                     }
                     Spacer(modifier = Modifier.width(5.dp))
                     buttonCompose.copy(shape = 4).CustomizeButton(
                         onclick = {
-
                             repository.messageSender(connectedDeviceContact.blindEmail, "0", 2, 1)
-
-
                             repository.getMessage(connectedDeviceContact.blindEmail)
                             //  fireStorage.updateData(FirebaseMessageModel(0,"",0))
                             fireStorageViewModel.dataLiveData.observe(ActivityUtils.appCompatActivity!!) { newData ->
@@ -268,9 +265,9 @@ class ConnectedDeviceView(
 
                         },
 
-                        modifier = Modifier.width(170.dp)
+                        modifier = Modifier.width(150.dp)
                     ) {
-                        textCompose.copy(fontSize = 15).CustomizeText(text = "location")
+                        textCompose.copy(fontSize = 13).CustomizeText(text = "location")
 
                     }
                 }
@@ -318,7 +315,8 @@ class ConnectedDeviceView(
     @Composable
     fun BackHandler() {
         BackHandler {
-            var fireStorage = FireStorageViewModel
+            var fireStorage =
+                ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
             NavControllerUtil.navController?.navigate("/connected")
             fireStorage.updateData(FirebaseMessageModel(0, "", 0))
 
