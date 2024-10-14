@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -161,6 +162,7 @@ class ConnectedDeviceView(
         }
     }
 
+
     @Composable
     fun ListItem(connectedDeviceContact: ConnectedDeviceContactModel) {
         //var fireStorage = FireStorageViewModel
@@ -170,6 +172,12 @@ class ConnectedDeviceView(
             ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
         var locationButtonClicked by remember { mutableStateOf(false) }
         var cameraButtonClicked by remember { mutableStateOf(false) }
+        fun resetButtonStates() {
+            locationButtonClicked = false
+            cameraButtonClicked = false
+
+        }
+        val state =fireStorageViewModel.dataLiveData.observeAsState().value
         Box(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -207,20 +215,23 @@ class ConnectedDeviceView(
 
                     buttonCompose.copy(shape = 4).CustomizeButton(
                         onclick = {
-                            //locationButtonClicked = true
+
+                            locationButtonClicked = false
                             repository.messageSender(connectedDeviceContact.blindEmail, "0", 1, 1)
 
                             repository.getMessage(connectedDeviceContact.blindEmail)
 
-
+                            fireStorageViewModel.dataLiveData.removeObservers(ActivityUtils.appCompatActivity!!)
                             fireStorageViewModel.dataLiveData.observe(ActivityUtils.appCompatActivity!!) { newData ->
                                 Log.e("newData is what ?", newData.commandID.toString())
 
                                 if (newData.commandID == 1) {
-
+                                    NavControllerUtil.navController?.navigate("/imageViewer")
                                     if (!cameraButtonClicked) {
-                                        NavControllerUtil.navController?.navigate("/imageViewer")
-                                        cameraButtonClicked = true
+
+                                       // cameraButtonClicked = true
+                                      //  resetButtonStates()
+                                        Log.d("ButtonAction", "Camera button clicked")
 
                                     }
 
@@ -239,19 +250,28 @@ class ConnectedDeviceView(
                     Spacer(modifier = Modifier.width(5.dp))
                     buttonCompose.copy(shape = 4).CustomizeButton(
                         onclick = {
+
+                            cameraButtonClicked = false
                             repository.messageSender(connectedDeviceContact.blindEmail, "0", 2, 1)
                             repository.getMessage(connectedDeviceContact.blindEmail)
+                            fireStorageViewModel.dataLiveData.removeObservers(ActivityUtils.appCompatActivity!!)
                             //  fireStorage.updateData(FirebaseMessageModel(0,"",0))
                             fireStorageViewModel.dataLiveData.observe(ActivityUtils.appCompatActivity!!) { newData ->
                                 Log.e("newData is what ????", newData.commandID.toString())
                                 Log.e("@@link", newData.messageValue.toString())
 
                                 if (newData.commandID == 2) {
-                                    val intent =
-                                        Intent(Intent.ACTION_VIEW, Uri.parse(newData.messageValue))
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(newData.messageValue)).apply {
+                                       // addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+
+
+                                    }
+                                    context.startActivity(intent)
                                     if (!locationButtonClicked) {
-                                        context.startActivity(intent)
+
                                         locationButtonClicked = true
+                                        resetButtonStates()
+                                        Log.d("ButtonAction", "locationButtonClicked")
                                     }
 
 

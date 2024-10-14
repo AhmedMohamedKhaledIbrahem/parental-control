@@ -62,7 +62,9 @@ class ImageViewCompose {
     fun BackHandler() {
         androidx.activity.compose.BackHandler {
             var fireStorage = ViewModelProvider(ActivityUtils.appCompatActivity!!)[FireStorageViewModel::class.java]
-            NavControllerUtil.navController?.navigate("/connected")
+            NavControllerUtil.navController?.navigate("/connected") {
+                popUpTo("/connected") { inclusive = true }  // Clears the back stack to avoid navigation issues
+            }
             fireStorage.updateData(FirebaseMessageModel(0, "", 0))
 
         }
